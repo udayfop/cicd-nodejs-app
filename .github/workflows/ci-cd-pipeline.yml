@@ -26,7 +26,7 @@ jobs:
         run: echo "No tests configured"
 
       - name: Build Docker Image
-        run: docker build -t nodejs-app .
+        run: docker build -t nodejs-app -f src/Dockerfile src/
 
       - name: Save Docker Image
         run: docker save nodejs-app | gzip > nodejs-app.tar.gz
