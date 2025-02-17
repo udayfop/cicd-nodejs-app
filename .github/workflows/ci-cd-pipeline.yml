@@ -1,4 +1,3 @@
----
 name: CI/CD Pipeline
 
 on:
@@ -11,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -31,7 +30,7 @@ jobs:
         run: docker save nodejs-app | gzip > nodejs-app.tar.gz
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: nodejs-app.tar.gz
@@ -41,10 +40,10 @@ jobs:
     needs: build
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: .
@@ -52,6 +51,5 @@ jobs:
       - name: Extract Docker Image
         run: gunzip -c nodejs-app.tar.gz | docker load
 
-      # - name: Deploy to S3
-      #   run: |
-      #     aws s3 sync public/ s3://your-s3-bucket-name --delete
+      - name: Verify Docker Image
+        run: docker images
