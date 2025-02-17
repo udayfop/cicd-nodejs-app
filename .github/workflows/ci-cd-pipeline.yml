@@ -14,19 +14,16 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-        with: 
+        with:
           node-version: 18
 
       - name: Install Dependencies
-        run:  | 
+        run: |
           cd src
           npm install
 
-      - name: Run Tests (optional)
-        run: echo "No tests configured"
-
       - name: Build Docker Image
-        run: docker build -t nodejs-app -f src/Dockerfile src/
+        run: docker build -t nodejs-app -f src/Dockerfile .
 
       - name: Save Docker Image
         run: docker save nodejs-app | gzip > nodejs-app.tar.gz
