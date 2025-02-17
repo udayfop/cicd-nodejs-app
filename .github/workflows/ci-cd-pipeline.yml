@@ -14,11 +14,13 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
-        with:
+        with: 
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install
+        run:  | 
+          cd src
+          npm install
 
       - name: Run Tests (optional)
         run: echo "No tests configured"
